@@ -12,6 +12,7 @@ export class CommandDeck {
     this.selectedDeviceId = null;
     this.onDeviceSwitch = null;
     this.snapshots = [];
+    this.stealthActive = false;
   }
 
   init() {
@@ -42,6 +43,18 @@ export class CommandDeck {
     // 4. Take Photo
     document.getElementById('cmd-force-snapshot')?.addEventListener('click', () => {
       this.sendCommand('take_snapshot');
+    });
+
+    // 5. Stealth Mode
+    document.getElementById('cmd-stealth-mode')?.addEventListener('click', () => {
+      this.stealthActive = !this.stealthActive;
+      this.sendCommand('stealth_mode', { enabled: this.stealthActive });
+      
+      const sub = document.getElementById('cmd-stealth-sub');
+      if (sub) {
+        sub.textContent = this.stealthActive ? '[ DISABLE BLACKOUT ]' : '[ BLACKOUT ]';
+        sub.style.color = this.stealthActive ? 'var(--color-warn)' : 'var(--text-dim)';
+      }
     });
 
     // Take Photo button under video viewport

