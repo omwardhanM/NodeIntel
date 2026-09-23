@@ -5,3 +5,4 @@ key.pem
 .env
 .DS_Store
 *.log
+.playwright-mcp/
