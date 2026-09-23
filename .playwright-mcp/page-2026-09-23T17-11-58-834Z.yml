@@ -1,0 +1,30 @@
+- generic [ref=f2e2]:
+  - banner [ref=f2e3]:
+    - generic [ref=f2e4]:
+      - generic [ref=f2e5]: "[DEVICE]"
+      - generic [ref=f2e6]: SENSORHUB // CLIENT
+    - button "Toggle theme" [ref=f2e7] [cursor=pointer]: "[THEME]"
+  - main [ref=f2e8]:
+    - generic [ref=f2e9]:
+      - generic [ref=f2e10]:
+        - generic [ref=f2e11]: DEVICE CONNECTION
+        - generic [ref=f2e12]: "[ READY ]"
+      - generic [ref=f2e13]: ┌─────────┐ │ ● REC │ │ [===] │ └────┬────┘ │ ▼
+      - heading "CONNECT SENSORS" [level=1] [ref=f2e15]
+      - paragraph [ref=f2e16]: Stream camera, microphone, and location to the admin console.
+      - generic [ref=f2e17]:
+        - generic [ref=f2e18]:
+          - generic [ref=f2e19]: "PROTOCOL:"
+          - generic [ref=f2e20]: WEBRTC / WSS
+        - generic [ref=f2e21]:
+          - generic [ref=f2e22]: "STATUS:"
+          - generic [ref=f2e23]: DISCONNECTED
+        - generic [ref=f2e24]:
+          - generic [ref=f2e25]: "CAMERA:"
+          - generic [ref=f2e26]: "[OFF]"
+      - button "[ CONNECT DEVICE ]" [ref=f2e27] [cursor=pointer]:
+        - generic [ref=f2e28]: "["
+        - generic [ref=f2e29]: CONNECT DEVICE
+        - generic [ref=f2e30]: "]"
+      - generic [ref=f2e31]: "* Camera, microphone, and location permissions are requested on tap."
+  - contentinfo [ref=f2e32]: SENSORHUB // LOCAL DEVICE CONNECTION

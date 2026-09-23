@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NodeIntel // Device Connection</title>
+  <meta name="description" content="Local network camera, audio, and location connection.">
+  
+  <!-- Monospace Typography (JetBrains Mono & IBM Plex Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/client.css">
+</head>
+<body>
+  <!-- Hidden Video Element for background stream capture -->
+  <video id="video-preview" autoplay playsinline muted style="display: none;"></video>
+
+  <div class="client-layout">
+    <!-- Header -->
+    <header class="client-header">
+      <div class="brand">
+        <span class="brand-ascii-tag">[DEVICE]</span>
+        <span class="brand-name">NODEINTEL // CLIENT</span>
+      </div>
+
+      <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle theme" title="Switch theme">
+        <span class="theme-toggle-text">[THEME]</span>
+      </button>
+    </header>
+
+    <!-- Insecure Context Warning (Only visible on non-localhost HTTP) -->
+    <div id="insecure-context-alert" class="secure-alert" style="display: none;">
+      <div class="secure-alert-content">
+        <span class="secure-alert-title">[!] HTTPS REQUIRED</span>
+        <p>Browsers require secure HTTPS for camera and microphone permissions. Connect via: <a id="https-redirect-link" href="#">HTTPS Link</a></p>
+      </div>
+    </div>
+
+    <!-- Main Node Connection Card -->
+    <main class="connect-card-wrap">
+      <div class="connect-card">
+        <!-- Status Bar -->
+        <div class="card-terminal-bar">
+          <span class="terminal-sys-id">DEVICE CONNECTION</span>
+          <span class="terminal-status-tag" id="status-pill">[ READY ]</span>
+        </div>
+
+        <div class="node-ascii-icon">
+          <pre class="ascii-art">
+   ┌─────────┐
+   │  ● REC  │
+   │  [===]  │
+   └────┬────┘
+        │
+        ▼</pre>
+        </div>
+
+        <h1 class="card-title">CONNECT SENSORS</h1>
+        <p class="card-desc" id="card-desc-text">
+          Stream camera, microphone, and location to the admin console.
+        </p>
+
+        <!-- Status Details Box -->
+        <div class="node-specs-box">
+          <div class="spec-row">
+            <span class="spec-key">PROTOCOL:</span>
+            <span class="spec-val">WEBRTC / WSS</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">STATUS:</span>
+            <span class="spec-val" id="status-label">DISCONNECTED</span>
+          </div>
+          <div class="spec-row" id="node-cam-row">
+            <span class="spec-key">CAMERA:</span>
+            <span class="spec-val" id="node-cam-status" style="color: var(--text-dim);">[OFF]</span>
+          </div>
+          <div class="spec-row" id="intercom-row" style="display: none;">
+            <span class="spec-key">INTERCOM:</span>
+            <span class="spec-val" id="intercom-status-val" style="color: var(--color-accent); font-weight: 700;">[RECEIVING VOICE...]</span>
+          </div>
+        </div>
+
+        <!-- Incoming Audio Player from Admin -->
+        <audio id="incoming-audio" autoplay playsinline style="position: absolute; width: 1px; height: 1px; opacity: 0.01; pointer-events: none;"></audio>
+
+        <!-- Node Camera Control (Visible when connected) -->
+        <button id="btn-node-toggle-cam" class="btn-node-secondary" style="display: none;">
+          [ <span id="node-cam-btn-text">TURN CAMERA ON</span> ]
+        </button>
+
+        <!-- The Single Connect Button -->
+        <button id="btn-connect" class="btn-connect">
+          <span class="btn-bracket">[</span>
+          <span id="btn-connect-text">CONNECT DEVICE</span>
+          <span class="btn-bracket">]</span>
+        </button>
+
+        <div class="privacy-note">
+          <span>* Camera, microphone, and location permissions are requested on tap.</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="client-footer">
+      <span>NODEINTEL // LOCAL DEVICE CONNECTION</span>
+    </footer>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Modular Client Script (ES Module) -->
+  <script type="module" src="/js/client/client.js"></script>
+</body>
+</html>

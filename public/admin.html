@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NodeIntel // Admin Console</title>
+  <meta name="description" content="Local network monitoring console for live video, audio, and device location.">
+
+  <!-- Monospace Typography (JetBrains Mono & IBM Plex Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <!-- ========================================================================
+       1. TWO-FACTOR PIN + PASSKEY AUTHENTICATION LOCK SCREEN
+       ======================================================================== -->
+  <div id="pin-lock-modal" class="pin-lock-overlay">
+    <div class="pin-card" id="pin-card-box">
+      <!-- Header -->
+      <div class="pin-terminal-header">
+        <span class="pin-sys-tag">[AUTH]</span>
+        <span class="pin-auth-level" id="auth-status-chip">2FA // PIN + PASSKEY</span>
+      </div>
+
+      <!-- Step 1: Numeric PIN -->
+      <div id="auth-step-pin" class="auth-step-section">
+        <div class="pin-header">
+          <h2 class="pin-title">ADMIN LOGIN</h2>
+          <p class="pin-subtitle">STEP 1: ENTER 4-DIGIT PIN</p>
+        </div>
+
+        <!-- PIN Indicator Slots -->
+        <div class="pin-dots-container" id="pin-dots-wrap">
+          <span class="pin-dot" id="dot-0">_</span>
+          <span class="pin-dot" id="dot-1">_</span>
+          <span class="pin-dot" id="dot-2">_</span>
+          <span class="pin-dot" id="dot-3">_</span>
+        </div>
+
+        <div class="pin-error-msg" id="pin-error-text"></div>
+
+        <!-- Keypad -->
+        <div class="keypad-grid">
+          <button type="button" class="key-btn" data-key="1">1</button>
+          <button type="button" class="key-btn" data-key="2">2</button>
+          <button type="button" class="key-btn" data-key="3">3</button>
+          <button type="button" class="key-btn" data-key="4">4</button>
+          <button type="button" class="key-btn" data-key="5">5</button>
+          <button type="button" class="key-btn" data-key="6">6</button>
+          <button type="button" class="key-btn" data-key="7">7</button>
+          <button type="button" class="key-btn" data-key="8">8</button>
+          <button type="button" class="key-btn" data-key="9">9</button>
+          <button type="button" class="key-btn key-action" id="key-clear" title="Clear PIN">CLR</button>
+          <button type="button" class="key-btn" data-key="0">0</button>
+          <button type="button" class="key-btn key-action" id="key-backspace" title="Delete digit">DEL</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Passkey Verification (FIDO2 / WebAuthn) -->
+      <div id="auth-step-passkey" class="auth-step-section" style="display: none;">
+        <div class="pin-header">
+          <h2 class="pin-title" id="passkey-title">PASSKEY AUTH</h2>
+          <p class="pin-subtitle" id="passkey-subtitle">STEP 2: CONFIRM PASSKEY</p>
+        </div>
+
+        <div class="passkey-card-body">
+          <div class="passkey-badge-row">
+            <span class="badge badge-accent" id="passkey-vault-badge">[ FIDO2 PASSKEY ]</span>
+            <span class="passkey-pin-ok text-success" id="passkey-pin-status">[✓] PIN VERIFIED</span>
+          </div>
+
+          <div class="passkey-action-wrap">
+            <button type="button" class="btn btn-primary passkey-primary-btn" id="btn-trigger-passkey">
+              [ <span id="passkey-btn-text">USE PASSKEY</span> ]
+            </button>
+            <p class="passkey-note" id="passkey-note-text">
+              Prompts your saved passkey or device authenticator.
+            </p>
+          </div>
+
+          <div class="pin-error-msg" id="passkey-error-text"></div>
+
+          <!-- Secondary Actions -->
+          <div class="passkey-secondary-actions" style="justify-content: center;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-back-to-pin">
+              [ &larr; RE-ENTER PIN ]
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. ADMIN SURVEILLANCE DASHBOARD (Unlocked)
+       ======================================================================== -->
+  <div class="admin-app-container" id="admin-main-view" style="display: none;">
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-tag">[ADMIN]</span>
+        <div>
+          <h1 class="brand-title">NODEINTEL // ADMIN CONSOLE <span class="brand-badge admin-badge">[ONLINE]</span></h1>
+          <p class="brand-subtitle">Live Camera, Audio &amp; Location Monitoring</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Target Connection Status -->
+        <div class="connection-status" id="admin-target-status">
+          <span class="status-bracket">[</span>
+          <span class="status-dot status-dot-waiting" id="target-status-dot"></span>
+          <span class="status-text" id="target-status-text">WAITING FOR DEVICE...</span>
+          <span class="status-bracket">]</span>
+        </div>
+
+        <!-- Multi-Device Selector Dropdown -->
+        <div class="device-selector-control" id="device-selector-box">
+          <span class="selector-tag">[DEVICE:</span>
+          <select id="device-select-dropdown" class="device-select-dropdown" aria-label="Select Target Device">
+            <option value="">NO DEVICE</option>
+          </select>
+          <span class="selector-tag">]</span>
+        </div>
+
+        <!-- Lock / Logout Button -->
+        <button class="btn btn-secondary" id="btn-lock-admin" title="Lock Admin Deck">
+          <span>[LOCK]</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button class="btn btn-secondary" id="admin-theme-toggle" aria-label="Toggle theme" title="Switch theme">
+          <span id="theme-btn-text">[THEME]</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Top Quick Metrics Strip (6 Columns on Full Width) -->
+    <section class="admin-metrics-bar">
+      <div class="metric-chip">
+        <span class="metric-lbl">DEVICE</span>
+        <span class="metric-val" id="metric-target-device">NO DEVICE CONNECTED</span>
+      </div>
+
+      <div class="metric-chip">
+        <span class="metric-lbl">BATTERY</span>
+        <span class="metric-val" id="metric-target-battery">--%</span>
+      </div>
+
+      <div class="metric-chip">
+        <span class="metric-lbl">CAMERA</span>
+        <span class="metric-val" id="metric-camera-status">INACTIVE</span>
+      </div>
+
+      <div class="metric-chip">
+        <span class="metric-lbl">AUDIO</span>
+        <span class="metric-val" id="metric-mic-status">INACTIVE</span>
+      </div>
+
+      <div class="metric-chip">
+        <span class="metric-lbl">LOCATION</span>
+        <span class="metric-val" id="metric-gps-status">NO FIX</span>
+      </div>
+
+      <div class="metric-chip">
+        <span class="metric-lbl">NETWORK / IP</span>
+        <span class="metric-val" id="metric-target-ip">--</span>
+      </div>
+    </section>
+
+    <!-- Main Dashboard Responsive Layout -->
+    <main class="admin-dashboard-layout">
+      <!-- ====================================================================
+           Primary Row: Live Video Feed (Left) & Location Radar Map (Right)
+           ==================================================================== -->
+      <div class="admin-row-primary">
+        <!-- 1. Live Remote Video Stream -->
+        <article class="sensor-card feed-card" id="card-remote-video">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="section-marker">[+]</span>
+              <h3 class="card-title">LIVE VIDEO</h3>
+            </div>
+            <span class="badge badge-idle" id="badge-remote-video">[OFFLINE]</span>
+          </div>
+
+          <div class="card-body">
+            <div class="admin-video-viewport" id="admin-video-viewport">
+              <!-- Corner Reticles -->
+              <span class="viewport-corner corner-tl">+</span>
+              <span class="viewport-corner corner-tr">+</span>
+              <span class="viewport-corner corner-bl">+</span>
+              <span class="viewport-corner corner-br">+</span>
+
+              <video id="remote-video-el" autoplay playsinline muted></video>
+              <canvas id="remote-canvas-fallback" style="display: none;"></canvas>
+              
+              <div class="video-placeholder" id="remote-video-placeholder">
+                <pre class="placeholder-ascii" id="placeholder-ascii-text">
+┌───────────────────────────┐
+│                           │
+│     [ NO VIDEO FEED ]     │
+│    Connect client device  │
+│                           │
+└───────────────────────────┘</pre>
+              </div>
+
+              <!-- Feed Overlay Details -->
+              <div class="video-overlay-info" id="remote-video-overlay" style="display: none;">
+                <span class="video-rec-indicator">● LIVE</span>
+                <span class="overlay-pipe">|</span>
+                <span id="remote-cam-res">1280 x 960</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button class="btn btn-secondary" id="btn-toggle-cam" title="Toggle Node Camera">
+              [ <span id="btn-toggle-cam-text">TURN CAM ON</span> ]
+            </button>
+
+            <button class="btn btn-primary" id="btn-take-snapshot" disabled>
+              [ TAKE PHOTO ]
+            </button>
+            
+            <button class="btn btn-secondary" id="btn-fullscreen-feed" title="Fullscreen" disabled>
+              [ FULLSCREEN ]
+            </button>
+
+            <button class="btn btn-secondary" id="btn-record-clip" title="Record 10s Clip" disabled>
+              [ REC 10S ]
+            </button>
+          </div>
+        </article>
+
+        <!-- 2. Real-Time Interactive GPS Map Tracker -->
+        <article class="sensor-card map-card" id="card-remote-map">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="section-marker">[+]</span>
+              <h3 class="card-title">LOCATION TRACKER</h3>
+            </div>
+            <span class="badge badge-idle" id="badge-remote-gps">[NO FIX]</span>
+          </div>
+
+          <div class="card-body">
+            <!-- Interactive Map Container -->
+            <div id="admin-leaflet-map" class="map-viewport"></div>
+
+            <!-- GPS Telemetry Readout Grid -->
+            <div class="gps-telemetry-box">
+              <div class="coords-grid">
+                <div class="coord-block">
+                  <span class="coord-label">LATITUDE:</span>
+                  <span class="coord-val" id="admin-val-lat">--.------°</span>
+                </div>
+                <div class="coord-block">
+                  <span class="coord-label">LONGITUDE:</span>
+                  <span class="coord-val" id="admin-val-lng">--.------°</span>
+                </div>
+              </div>
+
+              <div class="location-subgrid">
+                <div class="sub-stat">
+                  <span class="stat-label">ACCURACY:</span>
+                  <span class="stat-value" id="admin-val-acc">-- m</span>
+                </div>
+                <div class="sub-stat">
+                  <span class="stat-label">ALTITUDE:</span>
+                  <span class="stat-value" id="admin-val-alt">-- m</span>
+                </div>
+                <div class="sub-stat">
+                  <span class="stat-label">HEADING:</span>
+                  <span class="stat-value" id="admin-val-head">--°</span>
+                </div>
+                <div class="sub-stat">
+                  <span class="stat-label">SPEED:</span>
+                  <span class="stat-value" id="admin-val-spd">-- km/h</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button class="btn btn-secondary" id="btn-recenter-map">
+              [ RECENTER ]
+            </button>
+            <a id="admin-btn-maps-link" class="btn btn-secondary" title="Open Google Maps" target="_blank" rel="noopener noreferrer" style="opacity: 0.4; pointer-events: none;">
+              [ OPEN IN MAPS ]
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- ====================================================================
+           Secondary Row: Audio Monitor (Left), Controls & Specs (Center), Activity Log (Right)
+           ==================================================================== -->
+      <div class="admin-row-secondary">
+        <!-- 3. Live Remote Audio Monitor (Compact) -->
+        <article class="sensor-card audio-card" id="card-remote-audio">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="section-marker">[+]</span>
+              <h3 class="card-title">LIVE AUDIO</h3>
+            </div>
+            <span class="badge badge-idle" id="badge-remote-audio">[OFFLINE]</span>
+          </div>
+
+          <div class="card-body">
+            <!-- Remote Audio Level & Listen controls -->
+            <div class="admin-audio-controls">
+              <div class="vu-meter-wrap">
+                <div class="vu-header">
+                  <span class="stat-label">TARGET SOUND LEVEL:</span>
+                  <span class="stat-value" id="admin-stat-volume">0%</span>
+                </div>
+                <div class="vu-bar-bg">
+                  <div class="vu-bar-fill" id="admin-vu-fill" style="width: 0%;"></div>
+                </div>
+                <div class="vu-scale">
+                  <span>0%</span>
+                  <span>25%</span>
+                  <span>50%</span>
+                  <span>75%</span>
+                  <span>100%</span>
+                </div>
+              </div>
+
+              <!-- Admin Mic Sound Level VU Meter -->
+              <div class="vu-meter-wrap" id="admin-mic-vu-wrap">
+                <div class="vu-header">
+                  <span class="stat-label">ADMIN MIC LEVEL:</span>
+                  <span class="stat-value text-accent" id="admin-mic-stat-volume">0%</span>
+                </div>
+                <div class="vu-bar-bg">
+                  <div class="vu-bar-fill vu-bar-fill-mic" id="admin-mic-vu-fill" style="width: 0%;"></div>
+                </div>
+                <div class="vu-scale">
+                  <span>0%</span>
+                  <span>25%</span>
+                  <span>50%</span>
+                  <span>75%</span>
+                  <span>100%</span>
+                </div>
+              </div>
+
+              <!-- Two-Way Audio / Intercom Status -->
+              <div class="intercom-meta-row">
+                <span class="stat-label">ADMIN MIC (TO NODE):</span>
+                <span class="stat-value" id="admin-broadcast-status">[IDLE]</span>
+              </div>
+
+              <audio id="remote-audio-el" autoplay muted></audio>
+            </div>
+          </div>
+
+          <div class="card-footer audio-card-footer">
+            <button class="btn btn-secondary" id="btn-toggle-listen" title="Toggle listening to target device mic">
+              [ <span id="listen-btn-text">LISTEN (SPEAKER)</span> ]
+            </button>
+            <button class="btn btn-secondary" id="btn-broadcast-mic" title="Broadcast your microphone voice to target device">
+              [ <span id="broadcast-btn-text">BROADCAST (MIC)</span> ]
+            </button>
+          </div>
+        </article>
+
+        <!-- 4. Remote Device Controls & Specs -->
+        <article class="sensor-card command-card" id="card-remote-controls">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="section-marker">[+]</span>
+              <h3 class="card-title">DEVICE CONTROLS</h3>
+            </div>
+            <span class="badge badge-success">[READY]</span>
+          </div>
+
+          <div class="card-body">
+            <!-- Command Buttons Grid -->
+            <div class="command-deck-grid">
+              <button class="btn-command-action btn-command-span-2" id="cmd-toggle-cam">
+                <div class="cmd-text-wrap">
+                  <span class="cmd-title" id="cmd-toggle-cam-title">&gt; TURN CAM ON</span>
+                  <span class="cmd-sub" id="cmd-toggle-cam-sub">[ FEED: OFF ]</span>
+                </div>
+              </button>
+
+              <button class="btn-command-action" id="cmd-switch-cam">
+                <div class="cmd-text-wrap">
+                  <span class="cmd-title">&gt; FLIP CAMERA</span>
+                  <span class="cmd-sub">[ FRONT / REAR ]</span>
+                </div>
+              </button>
+
+              <button class="btn-command-action" id="cmd-trigger-alarm">
+                <div class="cmd-text-wrap">
+                  <span class="cmd-title">&gt; PLAY SOUND</span>
+                  <span class="cmd-sub">[ ALERT SIREN ]</span>
+                </div>
+              </button>
+
+              <button class="btn-command-action" id="cmd-force-gps">
+                <div class="cmd-text-wrap">
+                  <span class="cmd-title">&gt; REFRESH GPS</span>
+                  <span class="cmd-sub">[ ACCURATE FIX ]</span>
+                </div>
+              </button>
+
+              <button class="btn-command-action" id="cmd-force-snapshot">
+                <div class="cmd-text-wrap">
+                  <span class="cmd-title">&gt; TAKE PHOTO</span>
+                  <span class="cmd-sub">[ CAPTURE STILL ]</span>
+                </div>
+              </button>
+            </div>
+
+            <!-- Target Telemetry Specs Table -->
+            <div class="telemetry-list">
+              <div class="telemetry-row">
+                <span class="row-label">OPERATING SYSTEM:</span>
+                <span class="row-value" id="admin-val-ua">WAITING FOR DEVICE...</span>
+              </div>
+              <div class="telemetry-row">
+                <span class="row-label">SCREEN SIZE:</span>
+                <span class="row-value" id="admin-val-screen">-- x --</span>
+              </div>
+              <div class="telemetry-row">
+                <span class="row-label">BATTERY LEVEL:</span>
+                <span class="row-value" id="admin-val-battery">--</span>
+              </div>
+              <div class="telemetry-row">
+                <span class="row-label">NETWORK / IP:</span>
+                <span class="row-value" id="admin-val-ip">--</span>
+              </div>
+              <div class="telemetry-row">
+                <span class="row-label">CONNECTION:</span>
+                <span class="row-value text-accent" id="admin-val-ws">CONNECTING...</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Activity Log Terminal -->
+        <article class="sensor-card logs-card" id="card-activity-log">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="terminal-prefix">&gt;_</span>
+              <h3 class="card-title">ACTIVITY LOG</h3>
+            </div>
+            <button class="btn-clear-logs" id="btn-clear-admin-logs">[ CLEAR ]</button>
+          </div>
+          <div class="card-body logs-body">
+            <div class="logs-terminal" id="admin-logs-container"></div>
+          </div>
+        </article>
+      </div>
+
+      <!-- ====================================================================
+           Row 3: Captured Photos & Evidence Gallery
+           ==================================================================== -->
+      <section class="gallery-section" id="gallery-section" style="display: none;">
+        <div class="section-heading">
+          <h3 class="section-title">[+] CAPTURED PHOTOS (<span id="gallery-count">0</span>)</h3>
+          <button class="btn-clear-logs" id="btn-clear-gallery">[ CLEAR ]</button>
+        </div>
+        <div class="gallery-grid" id="gallery-container"></div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>NODEINTEL // LOCAL DEVICE MONITORING</p>
+    </footer>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="admin-toast-container" aria-live="polite"></div>
+
+  <!-- Leaflet JS for Maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Modular Admin Script (ES Module) -->
+  <script type="module" src="/js/admin/admin.js"></script>
+</body>
+</html>

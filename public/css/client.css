@@ -1,0 +1,261 @@
+/* ==========================================================================
+   NodeIntel Target Node Stylesheet
+   ========================================================================== */
+
+.client-layout {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px 20px;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.client-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.brand-ascii-tag {
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.brand-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 0.02em;
+}
+
+.theme-toggle-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--hairline);
+  color: var(--text-main);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.theme-toggle-btn:hover {
+  border-color: var(--hairline-strong);
+}
+
+.secure-alert {
+  background: var(--color-danger-bg);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 0.76rem;
+  margin: 16px 0;
+}
+.secure-alert-title {
+  display: block;
+  color: var(--color-danger);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.secure-alert a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.connect-card-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 0;
+}
+
+.connect-card {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.card-terminal-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.terminal-status-tag {
+  color: var(--color-warning);
+}
+
+.node-ascii-icon {
+  margin-bottom: 16px;
+  color: var(--color-accent);
+}
+.ascii-art {
+  font-size: 0.7rem;
+  line-height: 1.15;
+  color: var(--text-muted);
+}
+
+.connect-card .card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.connect-card .card-desc {
+  font-size: 0.78rem;
+  color: var(--text-body);
+  max-width: 420px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.node-specs-box {
+  width: 100%;
+  background: var(--bg-surface-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+}
+.spec-key {
+  color: var(--text-dim);
+  font-weight: 600;
+}
+.spec-val {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+#intercom-row {
+  padding-top: 4px;
+  border-top: 1px dashed var(--border-subtle);
+  animation: pulse-intercom-client 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse-intercom-client {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.btn-node-secondary {
+  width: 100%;
+  max-width: 320px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--hairline-strong);
+  background: var(--bg-surface-inset);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  letter-spacing: 0.03em;
+  transition: all var(--transition-fast);
+}
+
+.btn-node-secondary:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--text-muted);
+}
+
+.btn-node-secondary.cam-active {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.btn-node-secondary.cam-active:hover {
+  background: var(--color-danger);
+  color: #ffffff;
+}
+
+.btn-connect {
+  width: 100%;
+  max-width: 320px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--btn-primary-bg);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  letter-spacing: 0.04em;
+}
+.btn-connect:hover:not(:disabled) {
+  background: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
+}
+.btn-connect:active:not(:disabled) {
+  background: var(--btn-primary-active);
+  border-color: var(--btn-primary-active);
+}
+
+.btn-connect.connected-state {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+}
+.btn-connect.connected-state:hover {
+  background: var(--color-danger);
+  color: #ffffff;
+}
+
+.btn-bracket {
+  color: var(--text-dim);
+}
+
+.privacy-note {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-top: 16px;
+}
+
+.client-footer {
+  text-align: center;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+  letter-spacing: 0.03em;
+}

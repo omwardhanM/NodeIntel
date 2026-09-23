@@ -1,0 +1,25 @@
+{
+  "name": "nodeintel",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "dev:start": "node server.js",
+    "tunnel": "cloudflared tunnel --url http://localhost:3001",
+    "funnel": "tailscale funnel --bg 3001",
+    "funnel:status": "tailscale funnel status",
+    "funnel:stop": "tailscale funnel reset",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@simplewebauthn/browser": "^14.0.0",
+    "@simplewebauthn/server": "^14.0.2",
+    "express": "^5.2.1",
+    "ws": "^8.21.3"
+  }
+}

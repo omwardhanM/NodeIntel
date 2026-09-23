@@ -1,0 +1,178 @@
+- generic [ref=f1e2]:
+  - banner [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - generic [ref=f1e5]: "[SYS.ADMIN]"
+      - generic [ref=f1e6]:
+        - heading "SENSORHUB // COMMAND DECK [AUTHORIZED]" [level=1] [ref=f1e7]:
+          - text: SENSORHUB // COMMAND DECK
+          - generic [ref=f1e8]: "[AUTHORIZED]"
+        - paragraph [ref=f1e9]: LOCAL AREA NETWORK TELEMETRY HUB • WEBRTC RELAY
+    - generic [ref=f1e10]:
+      - generic [ref=f1e11]:
+        - generic [ref=f1e12]: "["
+        - generic [ref=f1e14]: SCANNING FOR TARGET...
+        - generic [ref=f1e15]: "]"
+      - button "[LOCK]" [ref=f1e16] [cursor=pointer]
+      - button "Toggle theme" [ref=f1e18] [cursor=pointer]:
+        - generic [ref=f1e19]: "[THEME]"
+  - generic [ref=f1e20]:
+    - generic [ref=f1e21]:
+      - generic [ref=f1e22]: TARGET DEVICE
+      - generic [ref=f1e23]: UNKNOWN DEVICE
+    - generic [ref=f1e24]:
+      - generic [ref=f1e25]: BATTERY
+      - generic [ref=f1e26]: Unknown
+    - generic [ref=f1e27]:
+      - generic [ref=f1e28]: CAMERA FEED
+      - generic [ref=f1e29]: INACTIVE
+    - generic [ref=f1e30]:
+      - generic [ref=f1e31]: AUDIO STREAM
+      - generic [ref=f1e32]: INACTIVE
+    - generic [ref=f1e33]:
+      - generic [ref=f1e34]: GPS FIX
+      - generic [ref=f1e35]: NO FIX
+  - main [ref=f1e36]:
+    - article [ref=f1e37]:
+      - generic [ref=f1e38]:
+        - generic [ref=f1e39]:
+          - generic [ref=f1e40]: "[+]"
+          - heading "LIVE TARGET VIDEO FEED" [level=3] [ref=f1e41]
+        - generic [ref=f1e42]: "[OFFLINE]"
+      - generic [ref=f1e44]:
+        - generic: +
+        - generic: +
+        - generic: +
+        - generic: +
+        - generic [ref=f1e45]: ┌───────────────────────────┐ │ │ │ [ AWAITING FEED... ] │ │ WEBRTC VIDEO STREAM │ │ │ └───────────────────────────┘
+      - generic [ref=f1e47]:
+        - button "[ CAPTURE SNAPSHOT ]" [disabled] [ref=f1e48]
+        - button "[ FULLSCREEN ]" [disabled] [ref=f1e49]
+        - button "[ REC 10S ]" [disabled] [ref=f1e50]
+    - article [ref=f1e51]:
+      - generic [ref=f1e52]:
+        - generic [ref=f1e53]:
+          - generic [ref=f1e54]: "[+]"
+          - heading "LIVE REMOTE AUDIO" [level=3] [ref=f1e55]
+        - generic [ref=f1e56]: "[OFFLINE]"
+      - generic [ref=f1e58]:
+        - generic [ref=f1e59]:
+          - generic [ref=f1e60]:
+            - generic [ref=f1e61]: "TARGET SOUND LEVEL:"
+            - generic [ref=f1e62]: 0%
+          - generic [ref=f1e64]:
+            - generic [ref=f1e65]: 0%
+            - generic [ref=f1e66]: 25%
+            - generic [ref=f1e67]: 50%
+            - generic [ref=f1e68]: 75%
+            - generic [ref=f1e69]: 100%
+        - generic [ref=f1e70]:
+          - generic [ref=f1e71]:
+            - generic [ref=f1e72]: "AUDIO CODEC:"
+            - generic [ref=f1e73]: OPUS / 48 kHz
+          - generic [ref=f1e74]:
+            - generic [ref=f1e75]: "DSP PROCESSING:"
+            - generic [ref=f1e76]: ECHO_CANCEL + AGC
+          - generic [ref=f1e77]:
+            - generic [ref=f1e78]: "MONITOR STATE:"
+            - generic [ref=f1e79]: MUTED (SILENT)
+          - generic [ref=f1e80]:
+            - generic [ref=f1e81]: "CHANNEL:"
+            - generic [ref=f1e82]: 1.0 MONO
+      - button "[ LISTEN IN (SPEAKER) ]" [ref=f1e84] [cursor=pointer]:
+        - text: "["
+        - generic [ref=f1e85]: LISTEN IN (SPEAKER)
+        - text: "]"
+    - article [ref=f1e86]:
+      - generic [ref=f1e87]:
+        - generic [ref=f1e88]:
+          - generic [ref=f1e89]: "[+]"
+          - heading "LIVE GEOLOCATION TRACKER" [level=3] [ref=f1e90]
+        - generic [ref=f1e91]: "[NO FIX]"
+      - generic [ref=f1e92]:
+        - generic [ref=f1e93]:
+          - generic:
+            - generic:
+              - img:
+                - generic [ref=f1e94] [cursor=pointer]
+            - button [ref=f1e95] [cursor=pointer]
+          - generic [ref=f1e99]:
+            - button "Zoom in" [ref=f1e100] [cursor=pointer]: +
+            - button "Zoom out" [ref=f1e101] [cursor=pointer]: −
+        - generic [ref=f1e102]:
+          - generic [ref=f1e103]:
+            - generic [ref=f1e104]:
+              - generic [ref=f1e105]: "LATITUDE:"
+              - generic [ref=f1e106]: "--.------°"
+            - generic [ref=f1e107]:
+              - generic [ref=f1e108]: "LONGITUDE:"
+              - generic [ref=f1e109]: "--.------°"
+          - generic [ref=f1e110]:
+            - generic [ref=f1e111]:
+              - generic [ref=f1e112]: "ACCURACY:"
+              - generic [ref=f1e113]: "-- m"
+            - generic [ref=f1e114]:
+              - generic [ref=f1e115]: "ALTITUDE:"
+              - generic [ref=f1e116]: "-- m"
+            - generic [ref=f1e117]:
+              - generic [ref=f1e118]: "HEADING:"
+              - generic [ref=f1e119]: "--°"
+            - generic [ref=f1e120]:
+              - generic [ref=f1e121]: "SPEED:"
+              - generic [ref=f1e122]: "-- km/h"
+      - generic [ref=f1e123]:
+        - button "[ RECENTER PIN ]" [ref=f1e124] [cursor=pointer]
+        - generic "Open Google Maps": "[ OPEN IN MAPS ]"
+    - article [ref=f1e125]:
+      - generic [ref=f1e126]:
+        - generic [ref=f1e127]:
+          - generic [ref=f1e128]: "[+]"
+          - heading "REMOTE COMMAND DECK" [level=3] [ref=f1e129]
+        - generic [ref=f1e130]: "[READY]"
+      - generic [ref=f1e131]:
+        - generic [ref=f1e132]:
+          - button "> FLIP CAMERA [ FRONT / REAR ]" [ref=f1e133] [cursor=pointer]:
+            - generic [ref=f1e134]:
+              - generic [ref=f1e135]: "> FLIP CAMERA"
+              - generic [ref=f1e136]: "[ FRONT / REAR ]"
+          - button "> TRIGGER ALARM [ SIREN TONE ]" [ref=f1e137] [cursor=pointer]:
+            - generic [ref=f1e138]:
+              - generic [ref=f1e139]: "> TRIGGER ALARM"
+              - generic [ref=f1e140]: "[ SIREN TONE ]"
+          - button "> FORCE GPS POLL [ HIGH ACCURACY ]" [ref=f1e141] [cursor=pointer]:
+            - generic [ref=f1e142]:
+              - generic [ref=f1e143]: "> FORCE GPS POLL"
+              - generic [ref=f1e144]: "[ HIGH ACCURACY ]"
+          - button "> REQUEST STILL [ HI-RES CAPTURE ]" [ref=f1e145] [cursor=pointer]:
+            - generic [ref=f1e146]:
+              - generic [ref=f1e147]: "> REQUEST STILL"
+              - generic [ref=f1e148]: "[ HI-RES CAPTURE ]"
+        - generic [ref=f1e149]:
+          - generic [ref=f1e150]:
+            - generic [ref=f1e151]: "TARGET OS / UA:"
+            - generic [ref=f1e152]: Unknown
+          - generic [ref=f1e153]:
+            - generic [ref=f1e154]: "SCREEN SIZE:"
+            - generic [ref=f1e155]: "-- x --"
+          - generic [ref=f1e156]:
+            - generic [ref=f1e157]: "TARGET BATTERY:"
+            - generic [ref=f1e158]: Unknown
+          - generic [ref=f1e159]:
+            - generic [ref=f1e160]: "RELAY WSS:"
+            - generic [ref=f1e161]: CONNECTED [WSS]
+  - generic [ref=f1e162]:
+    - generic [ref=f1e163]:
+      - generic [ref=f1e164]:
+        - generic [ref=f1e165]: ">_"
+        - heading "SURVEILLANCE & SECURITY AUDIT TERMINAL" [level=3] [ref=f1e166]
+      - button "[ CLEAR LOGS ]" [ref=f1e167] [cursor=pointer]
+    - generic [ref=f1e168]:
+      - generic [ref=f1e169]:
+        - generic [ref=f1e170]: "[04:25:03]"
+        - generic [ref=f1e171]: "[SUCCESS]"
+        - generic [ref=f1e172]: Admin Security Deck Unlocked
+      - generic [ref=f1e173]:
+        - generic [ref=f1e174]: "[04:25:03]"
+        - generic [ref=f1e175]: "[SUCCESS]"
+        - generic [ref=f1e176]: Connected to Local Area Surveillance Relay Server
+  - contentinfo [ref=f1e177]:
+    - paragraph [ref=f1e178]: SENSORHUB ADMIN CONSOLE // CONFIDENTIAL LOCAL AREA NETWORK SURVEILLANCE NODE

@@ -1,0 +1,19 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e5]: "[AUTH]"
+    - generic [ref=e6]: 2FA // PIN + PASSKEY
+  - generic [ref=e32]:
+    - generic [ref=e33]:
+      - heading "PASSKEY AUTH" [level=2] [ref=e34]
+      - paragraph [ref=e35]: "STEP 2: CONFIRM PASSKEY"
+    - generic [ref=e36]:
+      - generic [ref=e37]:
+        - generic [ref=e38]: "[ FIDO2 PASSKEY ]"
+        - generic [ref=e39]: "[✓] PIN VERIFIED"
+      - generic [ref=e40]:
+        - button "[ CONFIRM PASSKEY... ]" [ref=e41] [cursor=pointer]:
+          - text: "["
+          - generic [ref=e42]: CONFIRM PASSKEY...
+          - text: "]"
+        - paragraph [ref=e43]: Prompts your saved passkey or device authenticator.
+      - button "[ ← RE-ENTER PIN ]" [ref=e45] [cursor=pointer]

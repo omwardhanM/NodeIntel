@@ -1,0 +1,104 @@
+/* ==========================================================================
+   NodeIntel Theme Tokens (OpenCode / Berkeley Mono Monospaced System)
+   ========================================================================== */
+
+:root {
+  /* 100% Monospace Typography Stack */
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  --font-main: var(--font-mono);
+  --font-heading: var(--font-mono);
+
+  /* Radius System (4px interactive, 0px containers) */
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 0px;
+  --radius-full: 4px;
+
+  /* Semantic Color Ramp (Apple HIG & TUI Standards) */
+  --color-accent: #007aff;
+  --color-accent-hover: #0056b3;
+  --color-accent-active: #004085;
+  --color-accent-bg: rgba(0, 122, 255, 0.12);
+
+  --color-danger: #ff3b30;
+  --color-danger-hover: #d70015;
+  --color-danger-active: #a50011;
+  --color-danger-bg: rgba(255, 59, 48, 0.12);
+
+  --color-warning: #ff9f0a;
+  --color-warning-hover: #cc7f08;
+  --color-warning-active: #995f06;
+  --color-warning-bg: rgba(255, 159, 10, 0.12);
+
+  --color-success: #30d158;
+  --color-success-hover: #249d42;
+  --color-success-active: #1c7c34;
+  --color-success-bg: rgba(48, 209, 88, 0.12);
+
+  --transition-fast: 0.12s ease-out;
+  --transition-normal: 0.2s ease-out;
+}
+
+/* Dark Theme (Default Matte TUI) */
+[data-theme="dark"] {
+  --bg-app: #0f1012;
+  --bg-canvas: #0f1012;
+  --bg-card: #141518;
+  --bg-card-hover: #1a1b1f;
+  --bg-surface-inset: #0a0b0d;
+  --bg-terminal: #0a0b0d;
+
+  --border-card: rgba(255, 255, 255, 0.1);
+  --border-card-hover: rgba(255, 255, 255, 0.22);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --hairline: rgba(255, 255, 255, 0.1);
+  --hairline-strong: rgba(255, 255, 255, 0.25);
+
+  --text-main: #fdfcfc;
+  --text-ink: #fdfcfc;
+  --text-charcoal: #e4e4e7;
+  --text-body: #a1a1aa;
+  --text-muted: #8e8e93;
+  --text-dim: #636366;
+  --text-ash: #48484a;
+
+  --badge-idle-bg: rgba(255, 255, 255, 0.08);
+  --badge-idle-text: #a1a1aa;
+
+  --btn-primary-bg: #fdfcfc;
+  --btn-primary-text: #0f1012;
+  --btn-primary-hover: #e4e4e7;
+  --btn-primary-active: #d4d4d8;
+}
+
+/* Light Theme (Warm Cream Canvas: #fdfcfc / Ink: #201d1d) */
+[data-theme="light"] {
+  --bg-app: #fdfcfc;
+  --bg-canvas: #fdfcfc;
+  --bg-card: #f8f7f7;
+  --bg-card-hover: #f1eeee;
+  --bg-surface-inset: #f1eeee;
+  --bg-terminal: #201d1d;
+
+  --border-card: rgba(15, 0, 0, 0.12);
+  --border-card-hover: rgba(15, 0, 0, 0.25);
+  --border-subtle: rgba(15, 0, 0, 0.06);
+  --hairline: rgba(15, 0, 0, 0.12);
+  --hairline-strong: #646262;
+
+  --text-main: #201d1d;
+  --text-ink: #201d1d;
+  --text-charcoal: #302c2c;
+  --text-body: #424245;
+  --text-muted: #646262;
+  --text-dim: #6e6e73;
+  --text-ash: #9a9898;
+
+  --badge-idle-bg: rgba(15, 0, 0, 0.06);
+  --badge-idle-text: #646262;
+
+  --btn-primary-bg: #201d1d;
+  --btn-primary-text: #fdfcfc;
+  --btn-primary-hover: #302c2c;
+  --btn-primary-active: #0f0000;
+}

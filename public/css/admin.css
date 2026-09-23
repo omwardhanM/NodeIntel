@@ -1,0 +1,925 @@
+/* ==========================================================================
+   NodeIntel Admin Surveillance Stylesheet
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. PIN Lock Screen Overlay & Security Keypad (PIN: 1234)
+   -------------------------------------------------------------------------- */
+.pin-lock-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 11, 13, 0.96);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+[data-theme="light"] .pin-lock-overlay {
+  background: rgba(253, 252, 252, 0.96);
+}
+
+.pin-card {
+  background: var(--bg-card);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.pin-terminal-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.pin-sys-tag {
+  color: var(--color-accent);
+}
+
+.pin-auth-level {
+  color: var(--text-dim);
+}
+
+.pin-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.pin-subtitle {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  letter-spacing: 0.03em;
+}
+
+/* PIN Indicator Slots */
+.pin-dots-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.pin-dot {
+  width: 32px;
+  height: 38px;
+  border: 1px solid var(--hairline);
+  background: var(--bg-surface-inset);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  transition: all var(--transition-fast);
+}
+
+.pin-dot.filled {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: var(--color-accent-bg);
+}
+
+.pin-error-msg {
+  min-height: 20px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--color-danger);
+  margin-bottom: 14px;
+}
+
+/* Keypad Grid */
+.keypad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 260px;
+  margin-bottom: 16px;
+}
+
+.key-btn {
+  height: 48px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--hairline);
+  background: var(--bg-surface-inset);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.key-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--hairline-strong);
+}
+
+.key-btn:active {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+}
+
+.key-action {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+@keyframes shake-card {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.pin-shake {
+  animation: shake-card 0.35s ease-in-out;
+}
+
+/* Two-Factor Passkey Step Styles */
+.auth-step-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.passkey-card-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.passkey-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border-subtle);
+  font-size: 0.72rem;
+}
+
+.passkey-pin-ok {
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+}
+
+.passkey-action-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.passkey-primary-btn {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.passkey-note {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  margin: 0;
+  text-align: center;
+}
+
+.passkey-secondary-actions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   Full-Width Admin Dashboard Container
+   -------------------------------------------------------------------------- */
+.admin-app-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 16px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1920px) {
+  .admin-app-container {
+    padding: 20px 36px 48px;
+    gap: 20px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Top Quick Metrics Strip (6 Columns on Full Width)
+   -------------------------------------------------------------------------- */
+.admin-metrics-bar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .admin-metrics-bar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .admin-metrics-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.metric-chip {
+  background: var(--bg-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color var(--transition-fast);
+}
+
+.metric-chip:hover {
+  border-color: var(--hairline-strong);
+}
+
+.metric-lbl {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.metric-val {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   Device Selector Control
+   -------------------------------------------------------------------------- */
+.device-selector-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.selector-tag {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.device-select-dropdown {
+  background: transparent;
+  color: var(--text-main);
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  padding: 0 4px;
+}
+
+.device-select-dropdown option {
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+}
+
+/* --------------------------------------------------------------------------
+   3. Admin Dashboard Full-Width Responsive Layout
+   -------------------------------------------------------------------------- */
+.admin-dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Primary Row: Video (Left) & Radar Map (Right) */
+.admin-row-primary {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+@media (max-width: 1050px) {
+  .admin-row-primary {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Secondary Row: Audio (Left), Controls & Specs (Center), Activity Log (Right) */
+.admin-row-secondary {
+  display: grid;
+  grid-template-columns: 320px 1.25fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+@media (max-width: 1250px) {
+  .admin-row-secondary {
+    grid-template-columns: 1fr 1fr;
+  }
+  .logs-card {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-row-secondary {
+    grid-template-columns: 1fr;
+  }
+  .logs-card {
+    grid-column: span 1;
+  }
+}
+
+/* Card Flex Standards */
+.feed-card, .map-card, .audio-card, .command-card, .logs-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-card .card-body, .map-card .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-card .card-footer, .map-card .card-footer, .audio-card .card-footer {
+  margin-top: auto;
+}
+
+/* Video Viewport */
+.admin-video-viewport {
+  width: 100%;
+  flex: 1;
+  min-height: 320px;
+  max-height: 420px;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-surface-inset);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Corner Reticles */
+.viewport-corner {
+  position: absolute;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 6;
+}
+.corner-tl { top: 6px; left: 8px; }
+.corner-tr { top: 6px; right: 8px; }
+.corner-bl { bottom: 6px; left: 8px; }
+.corner-br { bottom: 6px; right: 8px; }
+
+#remote-video-el, #remote-canvas-fallback {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: none;
+}
+
+.video-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  width: 100%;
+  height: 100%;
+}
+
+.placeholder-ascii {
+  font-size: 0.72rem;
+  line-height: 1.3;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.video-overlay-info {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(10, 11, 13, 0.85);
+  color: #fdfcfc;
+  border: 1px solid var(--hairline);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 5;
+}
+
+.video-rec-indicator {
+  color: var(--color-danger);
+  font-weight: 700;
+}
+
+.overlay-pipe {
+  color: var(--text-dim);
+}
+
+/* --------------------------------------------------------------------------
+   4. Audio Controls & Segmented VU Meter
+   -------------------------------------------------------------------------- */
+.admin-audio-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.vu-meter-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vu-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.vu-bar-bg {
+  width: 100%;
+  height: 12px;
+  background: var(--bg-surface-inset);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.vu-bar-fill {
+  height: 100%;
+  background: var(--color-success);
+  transition: width 0.08s ease-out;
+}
+
+.vu-bar-fill.vu-bar-fill-mic {
+  background: var(--color-accent);
+}
+
+.vu-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.intercom-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.audio-card-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+.audio-card-footer .btn {
+  width: 100%;
+  padding: 6px 4px;
+  font-size: 0.72rem;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn.active-transmitting {
+  background: var(--color-danger-bg) !important;
+  border-color: var(--color-danger) !important;
+  color: var(--color-danger) !important;
+  animation: pulse-intercom 1.5s infinite;
+}
+
+@keyframes pulse-intercom {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.98); }
+}
+
+/* --------------------------------------------------------------------------
+   5. Leaflet Map Viewport & Telemetry Readout
+   -------------------------------------------------------------------------- */
+.map-viewport {
+  width: 100%;
+  height: 250px;
+  min-height: 230px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  background: var(--bg-surface-inset);
+  z-index: 10;
+}
+
+/* Dark Mode tiles filter for Leaflet */
+[data-theme="dark"] .leaflet-layer,
+[data-theme="dark"] .leaflet-control-zoom-in,
+[data-theme="dark"] .leaflet-control-zoom-out,
+[data-theme="dark"] .leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+.gps-telemetry-box {
+  background: var(--bg-surface-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.coords-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.coord-block {
+  background: var(--bg-card);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.coord-label {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+.coord-val {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.location-subgrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 12px;
+}
+
+.sub-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+}
+
+.stat-label { color: var(--text-dim); font-weight: 600; }
+.stat-value { font-family: var(--font-mono); font-weight: 700; color: var(--text-main); }
+
+/* --------------------------------------------------------------------------
+   6. Remote Command Deck Buttons
+   -------------------------------------------------------------------------- */
+.command-deck-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 500px) {
+  .command-deck-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-command-span-2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 500px) {
+  .btn-command-span-2 {
+    grid-column: span 1;
+  }
+}
+
+.btn-command-action {
+  background: var(--bg-surface-inset);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--text-main);
+  text-align: left;
+  font-family: var(--font-mono);
+}
+
+.btn-command-action:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--hairline-strong);
+}
+
+.btn-command-action:active {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+}
+
+.btn-command-action:active .cmd-sub {
+  color: var(--btn-primary-text);
+}
+
+.btn-command-action.active-cam-command {
+  border-color: var(--color-danger);
+  background: var(--color-danger-bg);
+}
+
+.btn-command-action.active-cam-command .cmd-title {
+  color: var(--color-danger);
+}
+
+.btn-command-action.active-cam-command .cmd-sub {
+  color: var(--color-danger);
+  font-weight: 700;
+}
+
+.cmd-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.cmd-title {
+  font-weight: 700;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.cmd-sub {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* Telemetry List */
+.telemetry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--bg-surface-inset);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.telemetry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.74rem;
+}
+
+.row-label { color: var(--text-dim); font-weight: 600; }
+.row-value {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-main);
+  max-width: 220px;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.text-accent { color: var(--color-accent) !important; }
+
+/* --------------------------------------------------------------------------
+   7. Captured Evidence Gallery
+   -------------------------------------------------------------------------- */
+.gallery-section {
+  background: var(--bg-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.section-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.snapshot-item {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  background: var(--bg-surface-inset);
+  aspect-ratio: 4 / 3;
+}
+
+.snapshot-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.snapshot-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 11, 13, 0.85);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.snapshot-item:hover .snapshot-overlay {
+  opacity: 1;
+}
+
+.snapshot-time {
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: #cbd5e1;
+}
+
+.btn-download-snap {
+  background: var(--btn-primary-bg);
+  border: none;
+  color: var(--btn-primary-text);
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   8. Activity & Security Event Audit Terminal
+   -------------------------------------------------------------------------- */
+.logs-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.logs-card .card-body.logs-body {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.btn-clear-logs {
+  background: transparent;
+  border: 1px solid var(--hairline);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: all var(--transition-fast);
+}
+.btn-clear-logs:hover {
+  color: var(--text-main);
+  border-color: var(--hairline-strong);
+}
+
+.logs-terminal {
+  flex: 1;
+  height: 100%;
+  min-height: 240px;
+  max-height: 310px;
+  overflow-y: auto;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-body);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--bg-surface-inset);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+.log-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.4;
+}
+.log-time { color: var(--text-dim); flex-shrink: 0; }
+.log-type { font-weight: 700; padding: 0 4px; border-radius: 2px; font-size: 0.68rem; flex-shrink: 0; }
+.log-info .log-type { background: var(--color-accent-bg); color: var(--color-accent); }
+.log-success .log-type { background: var(--color-success-bg); color: var(--color-success); }
+.log-warn .log-type { background: var(--color-warning-bg); color: var(--color-warning); }
+.log-error .log-type { background: var(--color-danger-bg); color: var(--color-danger); }
+.log-msg { word-break: break-word; color: var(--text-main); }
+
+/* --------------------------------------------------------------------------
+   9. Footer
+   -------------------------------------------------------------------------- */
+.app-footer {
+  text-align: center;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  padding: 16px 0 8px;
+  border-top: 1px solid var(--hairline);
+  letter-spacing: 0.03em;
+}

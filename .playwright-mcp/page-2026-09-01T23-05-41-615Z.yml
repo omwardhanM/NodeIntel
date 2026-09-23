@@ -1,0 +1,170 @@
+- generic [ref=f4e2]:
+  - banner [ref=f4e3]:
+    - generic [ref=f4e4]:
+      - generic [ref=f4e5]: "[ADMIN]"
+      - generic [ref=f4e6]:
+        - heading "SENSORHUB // ADMIN CONSOLE [ONLINE]" [level=1] [ref=f4e7]:
+          - text: SENSORHUB // ADMIN CONSOLE
+          - generic [ref=f4e8]: "[ONLINE]"
+        - paragraph [ref=f4e9]: Live Camera, Audio & Location Monitoring
+    - generic [ref=f4e10]:
+      - generic [ref=f4e11]:
+        - generic [ref=f4e12]: "["
+        - generic [ref=f4e14]: WAITING FOR DEVICE...
+        - generic [ref=f4e15]: "]"
+      - button "[LOCK]" [ref=f4e16] [cursor=pointer]
+      - button "Toggle theme" [active] [ref=f4e18] [cursor=pointer]:
+        - generic [ref=f4e19]: "[THEME]"
+  - generic [ref=f4e20]:
+    - generic [ref=f4e21]:
+      - generic [ref=f4e22]: DEVICE
+      - generic [ref=f4e23]: Linux PC
+    - generic [ref=f4e24]:
+      - generic [ref=f4e25]: BATTERY
+      - generic [ref=f4e26]: 100% (CHG)
+    - generic [ref=f4e27]:
+      - generic [ref=f4e28]: CAMERA
+      - generic [ref=f4e29]: INACTIVE
+    - generic [ref=f4e30]:
+      - generic [ref=f4e31]: AUDIO
+      - generic [ref=f4e32]: INACTIVE
+    - generic [ref=f4e33]:
+      - generic [ref=f4e34]: LOCATION
+      - generic [ref=f4e35]: NO FIX
+  - main [ref=f4e36]:
+    - generic [ref=f4e37]:
+      - article [ref=f4e38]:
+        - generic [ref=f4e39]:
+          - generic [ref=f4e40]:
+            - generic [ref=f4e41]: "[+]"
+            - heading "LIVE VIDEO" [level=3] [ref=f4e42]
+          - generic [ref=f4e43]: "[OFFLINE]"
+        - generic [ref=f4e45]:
+          - generic: +
+          - generic: +
+          - generic: +
+          - generic: +
+          - generic [ref=f4e46]: ┌───────────────────────────┐ │ │ │ [ NO VIDEO FEED ] │ │ Connect client device │ │ │ └───────────────────────────┘
+        - generic [ref=f4e48]:
+          - button "[ TAKE PHOTO ]" [disabled] [ref=f4e49]
+          - button "[ FULLSCREEN ]" [disabled] [ref=f4e50]
+          - button "[ REC 10S ]" [disabled] [ref=f4e51]
+      - article [ref=f4e52]:
+        - generic [ref=f4e53]:
+          - generic [ref=f4e54]:
+            - generic [ref=f4e55]: "[+]"
+            - heading "LOCATION TRACKER" [level=3] [ref=f4e56]
+          - generic [ref=f4e57]: "[NO FIX]"
+        - generic [ref=f4e58]:
+          - generic [ref=f4e59]:
+            - generic:
+              - generic:
+                - img:
+                  - generic [ref=f4e60] [cursor=pointer]
+              - button [ref=f4e61] [cursor=pointer]
+            - generic [ref=f4e65]:
+              - button "Zoom in" [ref=f4e66] [cursor=pointer]: +
+              - button "Zoom out" [ref=f4e67] [cursor=pointer]: −
+          - generic [ref=f4e68]:
+            - generic [ref=f4e69]:
+              - generic [ref=f4e70]:
+                - generic [ref=f4e71]: "LATITUDE:"
+                - generic [ref=f4e72]: "--.------°"
+              - generic [ref=f4e73]:
+                - generic [ref=f4e74]: "LONGITUDE:"
+                - generic [ref=f4e75]: "--.------°"
+            - generic [ref=f4e76]:
+              - generic [ref=f4e77]:
+                - generic [ref=f4e78]: "ACCURACY:"
+                - generic [ref=f4e79]: "-- m"
+              - generic [ref=f4e80]:
+                - generic [ref=f4e81]: "ALTITUDE:"
+                - generic [ref=f4e82]: "-- m"
+              - generic [ref=f4e83]:
+                - generic [ref=f4e84]: "HEADING:"
+                - generic [ref=f4e85]: "--°"
+              - generic [ref=f4e86]:
+                - generic [ref=f4e87]: "SPEED:"
+                - generic [ref=f4e88]: "-- km/h"
+        - generic [ref=f4e89]:
+          - button "[ RECENTER ]" [ref=f4e90] [cursor=pointer]
+          - generic "Open Google Maps": "[ OPEN IN MAPS ]"
+    - generic [ref=f4e91]:
+      - article [ref=f4e92]:
+        - generic [ref=f4e93]:
+          - generic [ref=f4e94]:
+            - generic [ref=f4e95]: "[+]"
+            - heading "LIVE AUDIO" [level=3] [ref=f4e96]
+          - generic [ref=f4e97]: "[OFFLINE]"
+        - generic [ref=f4e100]:
+          - generic [ref=f4e101]:
+            - generic [ref=f4e102]: "SOUND LEVEL:"
+            - generic [ref=f4e103]: 0%
+          - generic [ref=f4e105]:
+            - generic [ref=f4e106]: 0%
+            - generic [ref=f4e107]: 25%
+            - generic [ref=f4e108]: 50%
+            - generic [ref=f4e109]: 75%
+            - generic [ref=f4e110]: 100%
+        - button "[ LISTEN (SPEAKER) ]" [ref=f4e112] [cursor=pointer]:
+          - text: "["
+          - generic [ref=f4e113]: LISTEN (SPEAKER)
+          - text: "]"
+      - article [ref=f4e114]:
+        - generic [ref=f4e115]:
+          - generic [ref=f4e116]:
+            - generic [ref=f4e117]: "[+]"
+            - heading "DEVICE CONTROLS" [level=3] [ref=f4e118]
+          - generic [ref=f4e119]: "[READY]"
+        - generic [ref=f4e120]:
+          - generic [ref=f4e121]:
+            - button "> FLIP CAMERA [ FRONT / REAR ]" [ref=f4e122] [cursor=pointer]:
+              - generic [ref=f4e123]:
+                - generic [ref=f4e124]: "> FLIP CAMERA"
+                - generic [ref=f4e125]: "[ FRONT / REAR ]"
+            - button "> PLAY SOUND [ ALERT SIREN ]" [ref=f4e126] [cursor=pointer]:
+              - generic [ref=f4e127]:
+                - generic [ref=f4e128]: "> PLAY SOUND"
+                - generic [ref=f4e129]: "[ ALERT SIREN ]"
+            - button "> REFRESH GPS [ ACCURATE FIX ]" [ref=f4e130] [cursor=pointer]:
+              - generic [ref=f4e131]:
+                - generic [ref=f4e132]: "> REFRESH GPS"
+                - generic [ref=f4e133]: "[ ACCURATE FIX ]"
+            - button "> TAKE PHOTO [ CAPTURE STILL ]" [ref=f4e134] [cursor=pointer]:
+              - generic [ref=f4e135]:
+                - generic [ref=f4e136]: "> TAKE PHOTO"
+                - generic [ref=f4e137]: "[ CAPTURE STILL ]"
+          - generic [ref=f4e138]:
+            - generic [ref=f4e139]:
+              - generic [ref=f4e140]: "OPERATING SYSTEM:"
+              - generic [ref=f4e141]: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+            - generic [ref=f4e142]:
+              - generic [ref=f4e143]: "SCREEN SIZE:"
+              - generic [ref=f4e144]: "-- x --"
+            - generic [ref=f4e145]:
+              - generic [ref=f4e146]: "BATTERY LEVEL:"
+              - generic [ref=f4e147]: 100% (CHG)
+            - generic [ref=f4e148]:
+              - generic [ref=f4e149]: "CONNECTION:"
+              - generic [ref=f4e150]: CONNECTED [WSS]
+      - generic [ref=f4e151]:
+        - generic [ref=f4e152]:
+          - generic [ref=f4e153]:
+            - generic [ref=f4e154]: ">_"
+            - heading "ACTIVITY LOG" [level=3] [ref=f4e155]
+          - button "[ CLEAR ]" [ref=f4e156] [cursor=pointer]
+        - generic [ref=f4e157]:
+          - generic [ref=f4e158]:
+            - generic [ref=f4e159]: "[04:35:18]"
+            - generic [ref=f4e160]: "[SUCCESS]"
+            - generic [ref=f4e161]: Admin console unlocked
+          - generic [ref=f4e162]:
+            - generic [ref=f4e163]: "[04:35:18]"
+            - generic [ref=f4e164]: "[SUCCESS]"
+            - generic [ref=f4e165]: Connected to relay server
+          - generic [ref=f4e168]:
+            - generic [ref=f4e169]: "[04:35:18]"
+            - generic [ref=f4e170]: "[INFO]"
+            - generic [ref=f4e171]: "Command sent: [REQUEST_OFFER]"
+  - contentinfo [ref=f4e166]:
+    - paragraph [ref=f4e167]: SENSORHUB // LOCAL DEVICE MONITORING

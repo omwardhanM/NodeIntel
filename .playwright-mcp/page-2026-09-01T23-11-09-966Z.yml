@@ -1,0 +1,171 @@
+- generic [ref=f6e2]:
+  - banner [ref=f6e3]:
+    - generic [ref=f6e4]:
+      - generic [ref=f6e5]: "[ADMIN]"
+      - generic [ref=f6e6]:
+        - heading "SENSORHUB // ADMIN CONSOLE [ONLINE]" [level=1] [ref=f6e7]:
+          - text: SENSORHUB // ADMIN CONSOLE
+          - generic [ref=f6e8]: "[ONLINE]"
+        - paragraph [ref=f6e9]: Live Camera, Audio & Location Monitoring
+    - generic [ref=f6e10]:
+      - generic [ref=f6e11]:
+        - generic [ref=f6e12]: "["
+        - generic [ref=f6e14]: WAITING FOR DEVICE...
+        - generic [ref=f6e15]: "]"
+      - generic [ref=f6e16]:
+        - generic [ref=f6e17]: "[DEVICE:"
+        - combobox "Select Target Device" [ref=f6e18] [cursor=pointer]:
+          - option "NO DEVICE" [selected]
+        - generic [ref=f6e19]: "]"
+      - button "[LOCK]" [ref=f6e20] [cursor=pointer]
+      - button "Toggle theme" [ref=f6e22] [cursor=pointer]:
+        - generic [ref=f6e23]: "[THEME]"
+  - generic [ref=f6e24]:
+    - generic [ref=f6e25]:
+      - generic [ref=f6e26]: DEVICE
+      - generic [ref=f6e27]: NO DEVICE CONNECTED
+    - generic [ref=f6e28]:
+      - generic [ref=f6e29]: BATTERY
+      - generic [ref=f6e30]: "--%"
+    - generic [ref=f6e31]:
+      - generic [ref=f6e32]: CAMERA
+      - generic [ref=f6e33]: INACTIVE
+    - generic [ref=f6e34]:
+      - generic [ref=f6e35]: AUDIO
+      - generic [ref=f6e36]: INACTIVE
+    - generic [ref=f6e37]:
+      - generic [ref=f6e38]: LOCATION
+      - generic [ref=f6e39]: NO FIX
+  - main [ref=f6e40]:
+    - generic [ref=f6e41]:
+      - article [ref=f6e42]:
+        - generic [ref=f6e43]:
+          - generic [ref=f6e44]:
+            - generic [ref=f6e45]: "[+]"
+            - heading "LIVE VIDEO" [level=3] [ref=f6e46]
+          - generic [ref=f6e47]: "[OFFLINE]"
+        - generic [ref=f6e49]:
+          - generic: +
+          - generic: +
+          - generic: +
+          - generic: +
+          - generic [ref=f6e50]: ┌───────────────────────────┐ │ │ │ [ NO VIDEO FEED ] │ │ Connect client device │ │ │ └───────────────────────────┘
+        - generic [ref=f6e52]:
+          - button "[ TAKE PHOTO ]" [disabled] [ref=f6e53]
+          - button "[ FULLSCREEN ]" [disabled] [ref=f6e54]
+          - button "[ REC 10S ]" [disabled] [ref=f6e55]
+      - article [ref=f6e56]:
+        - generic [ref=f6e57]:
+          - generic [ref=f6e58]:
+            - generic [ref=f6e59]: "[+]"
+            - heading "LOCATION TRACKER" [level=3] [ref=f6e60]
+          - generic [ref=f6e61]: "[NO FIX]"
+        - generic [ref=f6e62]:
+          - generic [ref=f6e63]:
+            - generic:
+              - generic:
+                - img:
+                  - generic [ref=f6e64] [cursor=pointer]
+              - button [ref=f6e65] [cursor=pointer]
+            - generic [ref=f6e69]:
+              - button "Zoom in" [ref=f6e70] [cursor=pointer]: +
+              - button "Zoom out" [ref=f6e71] [cursor=pointer]: −
+          - generic [ref=f6e72]:
+            - generic [ref=f6e73]:
+              - generic [ref=f6e74]:
+                - generic [ref=f6e75]: "LATITUDE:"
+                - generic [ref=f6e76]: "--.------°"
+              - generic [ref=f6e77]:
+                - generic [ref=f6e78]: "LONGITUDE:"
+                - generic [ref=f6e79]: "--.------°"
+            - generic [ref=f6e80]:
+              - generic [ref=f6e81]:
+                - generic [ref=f6e82]: "ACCURACY:"
+                - generic [ref=f6e83]: "-- m"
+              - generic [ref=f6e84]:
+                - generic [ref=f6e85]: "ALTITUDE:"
+                - generic [ref=f6e86]: "-- m"
+              - generic [ref=f6e87]:
+                - generic [ref=f6e88]: "HEADING:"
+                - generic [ref=f6e89]: "--°"
+              - generic [ref=f6e90]:
+                - generic [ref=f6e91]: "SPEED:"
+                - generic [ref=f6e92]: "-- km/h"
+        - generic [ref=f6e93]:
+          - button "[ RECENTER ]" [ref=f6e94] [cursor=pointer]
+          - generic "Open Google Maps": "[ OPEN IN MAPS ]"
+    - generic [ref=f6e95]:
+      - article [ref=f6e96]:
+        - generic [ref=f6e97]:
+          - generic [ref=f6e98]:
+            - generic [ref=f6e99]: "[+]"
+            - heading "LIVE AUDIO" [level=3] [ref=f6e100]
+          - generic [ref=f6e101]: "[OFFLINE]"
+        - generic [ref=f6e104]:
+          - generic [ref=f6e105]:
+            - generic [ref=f6e106]: "SOUND LEVEL:"
+            - generic [ref=f6e107]: 0%
+          - generic [ref=f6e109]:
+            - generic [ref=f6e110]: 0%
+            - generic [ref=f6e111]: 25%
+            - generic [ref=f6e112]: 50%
+            - generic [ref=f6e113]: 75%
+            - generic [ref=f6e114]: 100%
+        - button "[ LISTEN (SPEAKER) ]" [ref=f6e116] [cursor=pointer]:
+          - text: "["
+          - generic [ref=f6e117]: LISTEN (SPEAKER)
+          - text: "]"
+      - article [ref=f6e118]:
+        - generic [ref=f6e119]:
+          - generic [ref=f6e120]:
+            - generic [ref=f6e121]: "[+]"
+            - heading "DEVICE CONTROLS" [level=3] [ref=f6e122]
+          - generic [ref=f6e123]: "[READY]"
+        - generic [ref=f6e124]:
+          - generic [ref=f6e125]:
+            - button "> FLIP CAMERA [ FRONT / REAR ]" [ref=f6e126] [cursor=pointer]:
+              - generic [ref=f6e127]:
+                - generic [ref=f6e128]: "> FLIP CAMERA"
+                - generic [ref=f6e129]: "[ FRONT / REAR ]"
+            - button "> PLAY SOUND [ ALERT SIREN ]" [ref=f6e130] [cursor=pointer]:
+              - generic [ref=f6e131]:
+                - generic [ref=f6e132]: "> PLAY SOUND"
+                - generic [ref=f6e133]: "[ ALERT SIREN ]"
+            - button "> REFRESH GPS [ ACCURATE FIX ]" [ref=f6e134] [cursor=pointer]:
+              - generic [ref=f6e135]:
+                - generic [ref=f6e136]: "> REFRESH GPS"
+                - generic [ref=f6e137]: "[ ACCURATE FIX ]"
+            - button "> TAKE PHOTO [ CAPTURE STILL ]" [ref=f6e138] [cursor=pointer]:
+              - generic [ref=f6e139]:
+                - generic [ref=f6e140]: "> TAKE PHOTO"
+                - generic [ref=f6e141]: "[ CAPTURE STILL ]"
+          - generic [ref=f6e142]:
+            - generic [ref=f6e143]:
+              - generic [ref=f6e144]: "OPERATING SYSTEM:"
+              - generic [ref=f6e145]: WAITING FOR DEVICE...
+            - generic [ref=f6e146]:
+              - generic [ref=f6e147]: "SCREEN SIZE:"
+              - generic [ref=f6e148]: "-- x --"
+            - generic [ref=f6e149]:
+              - generic [ref=f6e150]: "BATTERY LEVEL:"
+              - generic [ref=f6e151]: "--"
+            - generic [ref=f6e152]:
+              - generic [ref=f6e153]: "CONNECTION:"
+              - generic [ref=f6e154]: CONNECTED [WSS]
+      - generic [ref=f6e155]:
+        - generic [ref=f6e156]:
+          - generic [ref=f6e157]:
+            - generic [ref=f6e158]: ">_"
+            - heading "ACTIVITY LOG" [level=3] [ref=f6e159]
+          - button "[ CLEAR ]" [ref=f6e160] [cursor=pointer]
+        - generic [ref=f6e161]:
+          - generic [ref=f6e162]:
+            - generic [ref=f6e163]: "[04:41:09]"
+            - generic [ref=f6e164]: "[SUCCESS]"
+            - generic [ref=f6e165]: Admin console unlocked
+          - generic [ref=f6e166]:
+            - generic [ref=f6e167]: "[04:41:09]"
+            - generic [ref=f6e168]: "[SUCCESS]"
+            - generic [ref=f6e169]: Connected to relay server
+  - contentinfo [ref=f6e170]:
+    - paragraph [ref=f6e171]: SENSORHUB // LOCAL DEVICE MONITORING
