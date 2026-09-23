@@ -150,6 +150,15 @@ export class HeadlessNodeIntelClient {
       return;
     }
 
+    // Request fullscreen immediately on user gesture for better stealth mode later
+    try {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(()=>{});
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen().catch(()=>{});
+      }
+    } catch (e) {}
+
     this.onStatusChange('CONNECTING');
 
     try {
