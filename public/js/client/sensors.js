@@ -11,6 +11,11 @@ export class SensorsManager {
   static incomingAudioSource = null;
   static incomingAudioGain = null;
   static onTelemetryChange = null;
+  static videoElement = null;
+
+  static setVideoElement(el) {
+    this.videoElement = el;
+  }
 
   static state = {
     camera: { active: false, label: '', resolution: '', facingMode: 'user' },
@@ -75,8 +80,7 @@ export class SensorsManager {
         resolution: `${settings.width || 1280} x ${settings.height || 960}`,
         facingMode: facingMode
       };
-      const video = document.getElementById('video-preview');
-      if (video) video.srcObject = this.mediaStream;
+      if (this.videoElement) this.videoElement.srcObject = this.mediaStream;
     } else {
       // OFF BY DEFAULT: Stop video tracks immediately so camera hardware & LED turn off
       const videoTracks = this.mediaStream.getVideoTracks();
@@ -90,8 +94,7 @@ export class SensorsManager {
         resolution: '--',
         facingMode: facingMode
       };
-      const video = document.getElementById('video-preview');
-      if (video) video.srcObject = null;
+      if (this.videoElement) this.videoElement.srcObject = null;
     }
 
     this.setupAudioAnalyser();
@@ -143,8 +146,7 @@ export class SensorsManager {
       facingMode: facing
     };
 
-    const video = document.getElementById('video-preview');
-    if (video) video.srcObject = this.mediaStream;
+    if (this.videoElement) this.videoElement.srcObject = this.mediaStream;
 
     this.emitTelemetry();
     return videoTrack;
@@ -166,8 +168,7 @@ export class SensorsManager {
       facingMode: this.currentFacing
     };
 
-    const video = document.getElementById('video-preview');
-    if (video) video.srcObject = null;
+    if (this.videoElement) this.videoElement.srcObject = null;
 
     this.emitTelemetry();
   }
@@ -283,14 +284,13 @@ export class SensorsManager {
 
   static captureStillSnapshot() {
     if (!this.isCameraActive()) return null;
-    const video = document.getElementById('video-preview');
-    if (!video || !this.mediaStream) return null;
+    if (!this.videoElement || !this.mediaStream) return null;
 
     const canvas = document.createElement('canvas');
-    canvas.width = video.videoWidth || 1280;
-    canvas.height = video.videoHeight || 960;
+    canvas.width = this.videoElement.videoWidth || 1280;
+    canvas.height = this.videoElement.videoHeight || 960;
     const ctx = canvas.getContext('2d');
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(this.videoElement, 0, 0, canvas.width, canvas.height);
     return canvas.toDataURL('image/png', 0.92);
   }
 
